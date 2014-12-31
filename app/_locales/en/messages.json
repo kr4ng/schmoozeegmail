@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "schmoozeegmail",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Gmail extension for schmoozing",
+    "description": "The description of the application"
+  }
+}

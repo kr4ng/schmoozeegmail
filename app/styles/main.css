@@ -1,0 +1,15 @@
+  body {
+    /*padding: 20px;*/
+  }
+
+.schmoozeebar {
+    height: auto;
+    width: 250px;
+    position: fixed;
+    right: -5px;
+    bottom: 0px;
+    top: 108px;
+    z-index: 3;
+    display: block;
+    background-color:red;
+  }
