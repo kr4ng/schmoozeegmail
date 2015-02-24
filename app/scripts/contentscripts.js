@@ -8,12 +8,13 @@ window.addEventListener("load", function() {
   html.setAttribute('ng-csp', '');
 
   var viewport = document.querySelector('body');  
-  viewport.setAttribute('ng-controller', 'MainController');
+  viewport.setAttribute('ng-controller', 'MainController as MCtrl');
   app.controller("MainController", ['$http', '$scope', 'pollingServicePost', 'pollingService', function($http, $scope, pollingServicePost, pollingService) {
   
   //initialize controller variables, and start polling
   $scope.data = {ptweets:[],ctweets:[],local:[],sports:[],company:[]};
   $scope.ssId;
+  this.tab = 0;
   
   //start polling for SSID - really not a poll, just pinging the server once
   pollingServicePost.startPolling('schmoozeessid', 'https://schmoozee.herokuapp.com/canvaslocal2', 1000, function(response){
@@ -32,18 +33,30 @@ window.addEventListener("load", function() {
       });     
     }
   });
+
+  //not doing a whole lot right now
   //stop polling
+  this.isTab = function(value){
+    return (this.tab == value)
+  };
+
+  this.setTab = function(value){
+    console.log(value);
+  };
+
   }]);
 
   var myDirective = document.createElement('div');
   myDirective.setAttribute('schmoozee-sidetab', '');
   viewport.appendChild(myDirective);
 
+  //controller and link aren't doing a whole lot right now.
   app.directive('schmoozeeSidetab', ['$sce', function($sce) {
     return {
       restrict: 'EA', 
       replace: true,
-      link: function(scope, el, attr) {
+      controller: 'MainController as Mctrl',
+      link: function(scope, el, attr, isTab, setTab) {
         scope.data = scope.data;
       },
       templateUrl: $sce.trustAsResourceUrl(chrome.extension.getURL('templates/schmoozee.html'))

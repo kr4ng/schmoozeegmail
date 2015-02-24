@@ -8,8 +8,31 @@
     position: fixed;
     right: -5px;
     bottom: 0px;
-    top: 108px;
-    z-index: 3;
+    top: 90px;
+    z-index: 4;
     display: block;
-    background-color:red;
+    background-color:blue;
   }
+
+.minitab {
+    height: 20px;
+    width: 20px;
+    position: fixed;
+    right: -5px;
+    top: 0px;
+    z-index: 4;
+    display: block;
+    background-color:orange;  
+}
+
+.outerwrapper{
+  height: auto;
+  width: 250px;
+  position: fixed;
+  right: -5px;
+  bottom: 0px;
+  top: 108px;
+  z-index: 3;
+  display: block;
+  background-color:red;
+}
