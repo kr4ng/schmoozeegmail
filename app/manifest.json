@@ -30,7 +30,7 @@
           "scripts/contentscripts.js"
         ],
         "html": [ "templates/schmoozee.html" ],
-        "run_at": "document_end",
+        "run_at": "document_start",
         "all_frames": false
       }
     ],
@@ -38,7 +38,8 @@
     "web_accessible_resources": [
     "templates/schmoozee.html",
     "bower_components/angular/*",
-    "styles/main.css"
+    "styles/main.css",
+    "images/*"
     ]
 }
 
