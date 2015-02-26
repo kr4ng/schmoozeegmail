@@ -46,9 +46,13 @@ window.addEventListener("load", function() {
   var payload = {"name":name, "account":account};
 
   //start polling for SSID - really not a poll, just pinging the server once
-  pollingService.startPolling('schmoozeessid', payload,'https://schmoozee.herokuapp.com/chromeplugin', 10000, function(response){
+  pollingService.startPolling('schmoozeessid','https://schmoozee.herokuapp.com/chromeplugin', payload, 10000, function(response){
     $scope.imageUrl = response.data;
-    pollingService.stopPolling('schmoozeessid');   
+    pollingService.stopPolling('schmoozeessid');
+    console.log($scope.imageUrl);   
+    var contactimagediv = document.getElementById('contactHeaderRow');
+    var divs = contactimagediv.getElementsByTagName('div');
+    divs[0].getElementsByTagName('img')[0].src = $scope.imageUrl;
   });
   //not doing a whole lot right now
   //stop polling
