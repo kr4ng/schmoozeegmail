@@ -1,19 +1,33 @@
 'use strict';
 document.addEventListener("DOMContentLoaded", function(){
-  console.log('this is the first part of the code');
+  // Initialize a loading screen - somewhat placeholderish right now
   var contactimagediv = document.getElementById('contactHeaderRow');
-  console.log(chrome.extension.getURL("images/macstyle1.gif"));
   var divs = contactimagediv.getElementsByTagName('div');
   divs[0].getElementsByTagName('img')[0].src = chrome.extension.getURL("images/macstyle1.gif");
+
+  // Other JS that needs to run immediately goes here.
 });
 
 window.addEventListener("load", function() {
-  console.log('this is the second part of the code');
+  // Start the rest of the app
+  // Things in here are put here so as to not ruin SFDC performance
   var app = angular.module('Schmoozee', []);
 
-  var html = document.querySelector('html');
+  var bodydiv = document.getElementById('bodyCell')
+  var divos = bodydiv.getElementsByTagName('div');
+  var html = divos[1]
+  
   html.setAttribute('ng-app', '');
-  html.setAttribute('ng-csp', '');
+  html.setAttribute('ng-csp','');
+  html.setAttribute('ng-controller', 'MainController as MCtrl');
+
+  var contactimagediv = document.getElementById('contactHeaderRow');
+  var myDirective = document.createElement('div');
+  myDirective.setAttribute('schmoozee-area', '');
+  contactimagediv.appendChild(myDirective);
+  //var html = document.querySelector('html');
+  //html.setAttribute('ng-app', '');
+  //html.setAttribute('ng-csp', '');
 
   //var contactimagediv = document.getElementById('contactHeaderRow');
   //console.log('steven',contactimagediv);
@@ -25,8 +39,8 @@ window.addEventListener("load", function() {
   //  divArray.push(divs[i].innerHTML);
   //}
 
-  var viewport = document.querySelector('body');  
-  viewport.setAttribute('ng-controller', 'MainController as MCtrl');
+  //var viewport = document.querySelector('body');  
+  //viewport.setAttribute('ng-controller', 'MainController as MCtrl');
   app.controller("MainController", ['$http', '$scope', 'pollingServicePost', 'pollingService', function($http, $scope, pollingServicePost, pollingService) {
   
   //initialize controller variables, and start polling
@@ -66,12 +80,9 @@ window.addEventListener("load", function() {
 
   }]);
 
-  var myDirective = document.createElement('div');
-  myDirective.setAttribute('schmoozee-sidetab', '');
-  viewport.appendChild(myDirective);
   //"https://media.licdn.com/media/p/7/005/0ae/1ad/2dc5c21.jpg"
   //controller and link aren't doing a whole lot right now.
-  app.directive('schmoozeeSidetab', ['$sce', function($sce) {
+  app.directive('schmoozeeArea', ['$sce', function($sce) {
     return {
       restrict: 'EA', 
       replace: true,
