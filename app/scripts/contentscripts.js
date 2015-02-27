@@ -1,40 +1,38 @@
 'use strict';
 document.addEventListener("DOMContentLoaded", function(){
-  // Initialize a loading screen - somewhat placeholderish right now
+  // Initialize a loading screen - and replace contentdiv with SchmoozeeOuterContainer
+  //Schmoozee Outer Container is the main content div.
   var contactimagediv = document.getElementById('bodyTable');
-  var stevedivs = contactimagediv.getElementsByTagName('div');
-  //stevedivs[62].innerHTML = "<div id='SchmoozeeOuterContainer' style='height:100px'><img src='' /></div>";
-  //stevedivs[62].getElementsByTagName('img')[0].src = chrome.extension.getURL("images/loadingschmoozee.gif");
+  var allpagedivs = contactimagediv.getElementsByTagName('div');
+  var contentdiv = allpagedivs[62];
+  contentdiv.innerHTML = "<div id='SchmoozeeOuterContainer' style='height:50px'><img style='height:50px' src='' /></div>";
+  contentdiv.getElementsByTagName('img')[0].src = chrome.extension.getURL("images/loadingschmoozee.gif");
 
-  var contactimagediv = document.getElementById('contactHeaderRow');
-  var divs = contactimagediv.getElementsByTagName('div');
-  console.log(divs);
-  var socialRow = divs[2];
-  socialRow.innerHTML = "";
+  //var contactimagediv = document.getElementById('contactHeaderRow');
+  //var divs = contactimagediv.getElementsByTagName('div');
+  //console.log(divs);
+  //var socialRow = divs[2];
+  //socialRow.innerHTML = "";
   //socialRow.parentNode.removeChild(socialRow);
-  divs[0].getElementsByTagName('img')[0].src = chrome.extension.getURL("images/macstyle1.gif");
-
+  //divs[0].getElementsByTagName('img')[0].src = chrome.extension.getURL("images/macstyle1.gif");
   // Other JS that needs to run immediately goes here.
 });
 
 window.addEventListener("load", function() {
   // Start the rest of the app
   // Things in here are put here so as to not ruin SFDC performance
+  // Declare Globals
   var app = angular.module('Schmoozee', []);
-
-  var bodydiv = document.getElementById('bodyCell')
-  var divos = bodydiv.getElementsByTagName('div');
-  var html = divos[1]
-
-  html.setAttribute('ng-app', '');
-  html.setAttribute('ng-csp','');
-  html.setAttribute('social-me','');
-  html.setAttribute('ng-controller', 'MainController as MCtrl');
-
-  var contactimagediv = document.getElementById('contactHeaderRow');
+  var bodydiv = document.getElementById('SchmoozeeOuterContainer');
   var myDirective = document.createElement('div');
+
+  //lay the groundwork for the angular controller and directives
+  bodydiv.setAttribute('ng-app', '');
+  bodydiv.setAttribute('ng-csp','');
+  bodydiv.setAttribute('social-me','');
+  bodydiv.setAttribute('ng-controller', 'MainController as MCtrl');
   myDirective.setAttribute('schmoozee-area', '');
-  contactimagediv.appendChild(myDirective);
+  bodydiv.appendChild(myDirective);
   //var html = document.querySelector('html');
   //html.setAttribute('ng-app', '');
   //html.setAttribute('ng-csp', '');
@@ -58,6 +56,7 @@ window.addEventListener("load", function() {
   $scope.ssId;
   this.tab = 0;
 
+  console.log(bodydiv);
   //$scope.imageUrl = "https://media.licdn.com/media/p/7/005/0ae/1ad/2dc5c21.jpg";
   //var contactimagediv = document.getElementById('contactHeaderRow');
   //var divs = contactimagediv.getElementsByTagName('div');
@@ -65,18 +64,20 @@ window.addEventListener("load", function() {
 
   var nameDiv = document.getElementById('con2_ileinner');
   var name = nameDiv.innerHTML;
+  var titleDiv = document.getElementById('con2_ileinner');
+  var title = titleDiv.innerHTML;
   var accountDiv = document.getElementById('con4_ileinner').getElementsByTagName('a')[0];
   var account = accountDiv.innerHTML;
-  var payload = {"name":name, "account":account};
+  var payload = {"name":name, "account":account, "title":title};
 
   //start polling for SSID - really not a poll, just pinging the server once
   pollingService.startPolling('schmoozeessid','https://schmoozee.herokuapp.com/chromeplugin', payload, 10000, function(response){
     $scope.imageUrl = response.data;
     pollingService.stopPolling('schmoozeessid');
     console.log($scope.imageUrl);   
-    var contactimagediv = document.getElementById('contactHeaderRow');
-    var divs = contactimagediv.getElementsByTagName('div');
-    divs[0].getElementsByTagName('img')[0].src = $scope.imageUrl;
+    //var contactimagediv = document.getElementById('contactHeaderRow');
+    //var divs = contactimagediv.getElementsByTagName('div');
+    //divs[0].getElementsByTagName('img')[0].src = $scope.imageUrl;
   });
   //not doing a whole lot right now
   //stop polling
@@ -92,12 +93,16 @@ window.addEventListener("load", function() {
 
   //"https://media.licdn.com/media/p/7/005/0ae/1ad/2dc5c21.jpg"
   //controller and link aren't doing a whole lot right now.
-  app.directive('schmoozeeArea', ['$sce', function($sce) {
+  app.directive('schmoozeeArea', ['$sce', "$interval", function($sce, $interval) {
     return {
       restrict: 'EA', 
       replace: true,
       controller: 'MainController as Mctrl',
       link: function(scope, el, attr, isTab, setTab) {
+        $('#SchmoozeeOuterContainer > img').remove();
+        $('#SchmoozeeOuterContainer').css({'height':'75px'});
+        $('.scontainer').css({'display':''});
+        console.log(scope.data);
         scope.data = scope.data;
       },
       templateUrl: $sce.trustAsResourceUrl(chrome.extension.getURL('templates/schmoozee.html'))
@@ -109,7 +114,8 @@ window.addEventListener("load", function() {
       return {
           restrict: "A",
           link: function(scope, elem, attrs) {
-            //$('.content').remove();
+            console.log('i am in socialMe');
+            //$('.scontainer').css({'display':''});
           }
       }
   }]);
@@ -160,5 +166,5 @@ window.addEventListener("load", function() {
         }
   }]);
 
-  angular.bootstrap(html, ['Schmoozee'], []);
+  angular.bootstrap(bodydiv, ['Schmoozee'], []);
 });

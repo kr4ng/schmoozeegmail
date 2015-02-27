@@ -1,14 +1,14 @@
   body {
     /*padding: 20px;*/
   }
-
+/*
   .schmoozeebar {
       height: auto;
       width: 250px;
       position: fixed;
       right: -5px;
       bottom: 0px;
-      top: 90px;
+      top: 80px;
       z-index: 4;
       display: block;
       background-color:blue;
@@ -24,9 +24,16 @@
       display: block;
       background-color:orange;  
   }
-
+  light orange fcc300
+dark orange
+f29200
+light pink e5007f
+dark pink a60183
+*/
+  #scontainer{
+  }
   .outerwrapper{
-
+    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
   }
 
   .loading{
@@ -34,13 +41,57 @@
   }
 
   .dossier{
-
+    font-size: 20px;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 100;
+    letter-spacing: 0px;
+    line-height: 1.1;
+    padding-left: 80px;
   }
 
   .schmoozeelogo{
-
+    height:60px;
+    float:left;
+  }
+  #slogo{
+    height:60px;
   }
 
   .news{
+    padding-left:80px;
+  }
+  .news p{
+    display: block;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+  }
+  .news p a{
+    text-decoration:none;
+  }
+  .news p a:hover{
     
+  }
+
+  .stopics{
+    font-size: 20px;
+    color: #a60183;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.1;
+    padding-left: 80px;
+    margin-top: 5px;
+  }
+  .stopics a{
+    font-size: 20px;
+    color: #a60183;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-top: 5px;
+    text-decoration:none;
+  }
+  .stopics a:hover{
+    color:#fcc300;
   }

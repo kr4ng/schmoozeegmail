@@ -18,8 +18,8 @@
     "content_scripts": [
       {
         "matches": [
-          "http://*/*",
-          "https://*/*"
+          "http://marketo.my.salesforce.com/003*",
+          "https://marketo.my.salesforce.com/003*"
         ],
         "css": [
           "bower_components/angular/angular-csp.css",
@@ -40,6 +40,7 @@
     "templates/schmoozee.html",
     "bower_components/angular/*",
     "bower_components/jquery/*",
+    "bower_components/bootstrap/*",
     "styles/main.css",
     "images/*"
     ]
