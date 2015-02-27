@@ -2,37 +2,45 @@
     /*padding: 20px;*/
   }
 
-.schmoozeebar {
-    height: auto;
-    width: 250px;
-    position: fixed;
-    right: -5px;
-    bottom: 0px;
-    top: 90px;
-    z-index: 4;
-    display: block;
-    background-color:blue;
+  .schmoozeebar {
+      height: auto;
+      width: 250px;
+      position: fixed;
+      right: -5px;
+      bottom: 0px;
+      top: 90px;
+      z-index: 4;
+      display: block;
+      background-color:blue;
+    }
+
+  .minitab {
+      height: 20px;
+      width: 20px;
+      position: fixed;
+      right: -5px;
+      top: 0px;
+      z-index: 4;
+      display: block;
+      background-color:orange;  
   }
 
-.minitab {
-    height: 20px;
-    width: 20px;
-    position: fixed;
-    right: -5px;
-    top: 0px;
-    z-index: 4;
-    display: block;
-    background-color:orange;  
-}
+  .outerwrapper{
 
-.outerwrapper{
-  height: auto;
-  width: 250px;
-  position: fixed;
-  right: -5px;
-  bottom: 0px;
-  top: 108px;
-  z-index: 3;
-  display: block;
-  background-color:red;
-}
+  }
+
+  .loading{
+
+  }
+
+  .dossier{
+
+  }
+
+  .schmoozeelogo{
+
+  }
+
+  .news{
+    
+  }

@@ -1,8 +1,17 @@
 'use strict';
 document.addEventListener("DOMContentLoaded", function(){
   // Initialize a loading screen - somewhat placeholderish right now
+  var contactimagediv = document.getElementById('bodyTable');
+  var stevedivs = contactimagediv.getElementsByTagName('div');
+  //stevedivs[62].innerHTML = "<div id='SchmoozeeOuterContainer' style='height:100px'><img src='' /></div>";
+  //stevedivs[62].getElementsByTagName('img')[0].src = chrome.extension.getURL("images/loadingschmoozee.gif");
+
   var contactimagediv = document.getElementById('contactHeaderRow');
   var divs = contactimagediv.getElementsByTagName('div');
+  console.log(divs);
+  var socialRow = divs[2];
+  socialRow.innerHTML = "";
+  //socialRow.parentNode.removeChild(socialRow);
   divs[0].getElementsByTagName('img')[0].src = chrome.extension.getURL("images/macstyle1.gif");
 
   // Other JS that needs to run immediately goes here.
@@ -16,9 +25,10 @@ window.addEventListener("load", function() {
   var bodydiv = document.getElementById('bodyCell')
   var divos = bodydiv.getElementsByTagName('div');
   var html = divos[1]
-  
+
   html.setAttribute('ng-app', '');
   html.setAttribute('ng-csp','');
+  html.setAttribute('social-me','');
   html.setAttribute('ng-controller', 'MainController as MCtrl');
 
   var contactimagediv = document.getElementById('contactHeaderRow');
@@ -92,6 +102,16 @@ window.addEventListener("load", function() {
       },
       templateUrl: $sce.trustAsResourceUrl(chrome.extension.getURL('templates/schmoozee.html'))
     };
+  }]);
+
+  //i am going to work on a jquery fucking thing with this directive.
+  app.directive("socialMe", ["$interval", function($interval) {
+      return {
+          restrict: "A",
+          link: function(scope, elem, attrs) {
+            //$('.content').remove();
+          }
+      }
   }]);
 
   app.factory('pollingServicePost', ['$http', function($http){
