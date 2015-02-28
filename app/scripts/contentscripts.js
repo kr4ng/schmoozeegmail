@@ -74,6 +74,7 @@ window.addEventListener("load", function() {
   pollingService.startPolling('schmoozeessid','https://schmoozee.herokuapp.com/chromeplugin', payload, 10000, function(response){
     $scope.imageUrl = response.data;
     pollingService.stopPolling('schmoozeessid');
+    console.log('lol');
     console.log($scope.imageUrl);   
     //var contactimagediv = document.getElementById('contactHeaderRow');
     //var divs = contactimagediv.getElementsByTagName('div');
