@@ -18,8 +18,16 @@
     "content_scripts": [
       {
         "matches": [
-          "http://marketo.my.salesforce.com/003*",
-          "https://marketo.my.salesforce.com/003*"
+          "https://marketo.my.salesforce.com/0030*",
+          "https://marketo.my.salesforce.com/0031*",
+          "https://marketo.my.salesforce.com/0032*",
+          "https://marketo.my.salesforce.com/0033*",
+          "https://marketo.my.salesforce.com/0034*",
+          "https://marketo.my.salesforce.com/0035*",
+          "https://marketo.my.salesforce.com/0036*",
+          "https://marketo.my.salesforce.com/0037*",
+          "https://marketo.my.salesforce.com/0038*",
+          "https://marketo.my.salesforce.com/0039*"
         ],
         "css": [
           "bower_components/angular/angular-csp.css",

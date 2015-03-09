@@ -54,6 +54,7 @@ window.addEventListener("load", function() {
   //initialize controller variables, and start polling
   $scope.data = {ptweets:[],ctweets:[],local:[],sports:[],company:[]};
   $scope.ssId;
+  $scope.profileUrl = 'https://linkedin.com'
   this.tab = 0;
 
   console.log(bodydiv);
@@ -64,21 +65,25 @@ window.addEventListener("load", function() {
 
   var nameDiv = document.getElementById('con2_ileinner');
   var name = nameDiv.innerHTML;
-  var titleDiv = document.getElementById('con2_ileinner');
+  $scope.name = name;
+  var titleDiv = document.getElementById('con5_ileinner');
   var title = titleDiv.innerHTML;
   var accountDiv = document.getElementById('con4_ileinner').getElementsByTagName('a')[0];
   var account = accountDiv.innerHTML;
   var payload = {"name":name, "account":account, "title":title};
+  console.log(payload);
 
   //start polling for SSID - really not a poll, just pinging the server once
-  pollingService.startPolling('schmoozeessid','https://schmoozee.herokuapp.com/chromeplugin', payload, 10000, function(response){
-    $scope.imageUrl = response.data;
-    pollingService.stopPolling('schmoozeessid');
+  pollingService.startPolling('schmoozeessid','https://api.schmoozee.io/chromeplugin', payload, 10000, function(response){
+    $scope.data = response.data;
+    //pollingService.stopPolling('schmoozeessid');
     console.log('lol');
-    console.log($scope.imageUrl);   
-    //var contactimagediv = document.getElementById('contactHeaderRow');
-    //var divs = contactimagediv.getElementsByTagName('div');
-    //divs[0].getElementsByTagName('img')[0].src = $scope.imageUrl;
+    console.log($scope.data);   
+    console.log($scope.data.linkedindata.linkedinImageUrl);
+    $scope.profileUrl = 'https://www.linkedin.com/profile/view?id=' + $scope.data.linkedindata.linkedinID
+    //var slogo = document.getElementById('slogo');
+    //slogo.getElementsByTagName('img')[0].src = $scope.data.linkedindata.linkedinImageUrl;
+    pollingService.stopPolling('schmoozeessid');
   });
   //not doing a whole lot right now
   //stop polling
