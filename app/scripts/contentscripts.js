@@ -22,7 +22,15 @@ window.addEventListener("load", function() {
   // Start the rest of the app
   // Things in here are put here so as to not ruin SFDC performance
   // Declare Globals
-  var app = angular.module('Schmoozee', []);
+  var app = angular.module('Schmoozee', [])
+  .config( [
+    '$compileProvider',
+    function( $compileProvider )
+    {   
+         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|chrome-extension):|data:image\//);
+        // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
+    }
+]);
   var bodydiv = document.getElementById('SchmoozeeOuterContainer');
   var myDirective = document.createElement('div');
 
@@ -33,6 +41,7 @@ window.addEventListener("load", function() {
   bodydiv.setAttribute('ng-controller', 'MainController as MCtrl');
   myDirective.setAttribute('schmoozee-area', '');
   bodydiv.appendChild(myDirective);
+
   //var html = document.querySelector('html');
   //html.setAttribute('ng-app', '');
   //html.setAttribute('ng-csp', '');
@@ -56,8 +65,6 @@ window.addEventListener("load", function() {
   $scope.ssId;
   $scope.profileUrl = 'https://linkedin.com'
   this.tab = 0;
-
-  console.log(bodydiv);
   //$scope.imageUrl = "https://media.licdn.com/media/p/7/005/0ae/1ad/2dc5c21.jpg";
   //var contactimagediv = document.getElementById('contactHeaderRow');
   //var divs = contactimagediv.getElementsByTagName('div');
@@ -71,15 +78,12 @@ window.addEventListener("load", function() {
   var accountDiv = document.getElementById('con4_ileinner').getElementsByTagName('a')[0];
   var account = accountDiv.innerHTML;
   var payload = {"name":name, "account":account, "title":title};
-  console.log(payload);
 
   //start polling for SSID - really not a poll, just pinging the server once
   pollingService.startPolling('schmoozeessid','https://api.schmoozee.io/chromeplugin', payload, 10000, function(response){
     $scope.data = response.data;
     //pollingService.stopPolling('schmoozeessid');
-    console.log('lol');
-    console.log($scope.data);   
-    console.log($scope.data.linkedindata.linkedinImageUrl);
+
     $scope.profileUrl = 'https://www.linkedin.com/profile/view?id=' + $scope.data.linkedindata.linkedinID
     //var slogo = document.getElementById('slogo');
     //slogo.getElementsByTagName('img')[0].src = $scope.data.linkedindata.linkedinImageUrl;
@@ -105,11 +109,18 @@ window.addEventListener("load", function() {
       replace: true,
       controller: 'MainController as Mctrl',
       link: function(scope, el, attr, isTab, setTab) {
-        $('#SchmoozeeOuterContainer > img').remove();
-        $('#SchmoozeeOuterContainer').css({'height':'75px'});
-        $('.scontainer').css({'display':''});
-        console.log(scope.data);
-        scope.data = scope.data;
+           scope.companylogo = $sce.trustAsResourceUrl(chrome.extension.getURL('images/company.png'));
+           console.log(scope.companylogo);
+            $('#SchmoozeeOuterContainer').css({'height':'150px'});
+            $('#scontainer').css({'display':'none'});
+            var sr = setInterval(function(){
+              if (scope.data){
+                console.log(scope.data);
+                $('#SchmoozeeOuterContainer > img').remove();    
+                $('#scontainer').css({'display':''});         
+              }
+              clearInterval(sr);
+            }, 300);
       },
       templateUrl: $sce.trustAsResourceUrl(chrome.extension.getURL('templates/schmoozee.html'))
     };

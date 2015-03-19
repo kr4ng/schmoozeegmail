@@ -1,17 +1,21 @@
 <div id='scontainer'>
   <div class='srow'>
-    <div class='schmoozeelogo'>
+    <div ng-if='data.linkedindata.linkedinImageUrl' class='schmoozeelogo'>
       <a href='{{profileUrl}}'><img id='slogo' src='{{data.linkedindata.linkedinImageUrl}}' /></a>
     </div>
+    <div ng-class="{isactive:data.linkedindata.linkedinImageUrl}" >
     <div class='dossier'>
      {{name}}: {{data.linkedindata.linkedinHeadline}} 
     </div>
     <div class='stopics'>
-      Possible <a href="http://www.schmoozee.io" style='color: #a60183'>Schmooze</a> Topics:
+      Relevant News for {{name}}:
     </div>
     <div class='news'>
-      <p><a href="{{data.cnews[0].link}}" target="_blank">{{data.cnews[0].title}}</a></p>
-      <p><a href="{{data.cnews[1].link}}" target="_blank">{{data.cnews[1].title}}</a></p>
+      <p><img id='cp' src='{{companylogo}}' /><a href="{{data.cnews[0].link}}" target="_blank">{{data.cnews[0].title}}</a></p>
+      <p><img id='cp' src='{{companylogo}}' /><a href="{{data.cnews[1].link}}" target="_blank">{{data.cnews[1].title}}</a></p>
+      <p><img id='cp' src='{{companylogo}}' /><a href="{{data.cnews[2].link}}" target="_blank">{{data.cnews[2].title}}</a></p>
+      <p><img id='cp' src='{{companylogo}}' /><a href="{{data.cnews[3].link}}" target="_blank">{{data.cnews[3].title}}</a></p>
+    </div>
     </div>
   </div>
 </div>
